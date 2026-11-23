@@ -1,1 +1,12 @@
-<app-login (loginSuccess)="onLoginSuccess($event)"></app-login>
+@if (!user) {
+  <app-login (loginSuccess)="onLoginSuccess($event)"></app-login>
+} @else {
+  @if (isDashboard) {
+    <app-idea-manager-dashboard
+      [user]="user"
+      (logout)="onLogout()">
+    </app-idea-manager-dashboard>
+  } @else {
+    <router-outlet></router-outlet>
+  }
+}

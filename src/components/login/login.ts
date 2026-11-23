@@ -26,6 +26,12 @@ export class LoginComponent {
       return;
     }
 
+    // ✅ Hardcoded credentials check
+    if (this.username !== 'admin' || this.password !== 'admin123') {
+      this.error = 'Invalid username or password.';
+      return;
+    }
+
     this.loading = true;
 
     setTimeout(() => {

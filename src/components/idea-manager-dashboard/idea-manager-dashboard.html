@@ -1,0 +1,143 @@
+<div class="im-page">
+
+  <!-- Top Nav -->
+  <nav class="topnav">
+    <div class="topnav-left">
+      <div class="topnav__brand">NTT DATA</div>
+    </div>
+    <div class="topnav__actions">
+      <span>Home</span>
+      <span>Welcome, {{ user?.username }}</span>
+      <button class="btn btn--logout" (click)="onLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Page Body -->
+  <div class="im-body">
+
+    <!-- Breadcrumb -->
+    <div class="im-breadcrumb">
+      <span class="im-breadcrumb__link">Idea Manager</span>
+      <span class="im-breadcrumb__sep"> › </span>
+      <span class="im-breadcrumb__current">View/Post Idea</span>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="im-toolbar">
+
+      <!-- Left -->
+      <div class="im-toolbar__left">
+        <div class="im-toggle">
+          <button
+            class="im-toggle__btn"
+            [class.im-toggle__btn--active]="ideaFilter === 'MY IDEAS'"
+            (click)="ideaFilter = 'MY IDEAS'"
+          >MY IDEAS</button>
+          <button
+            class="im-toggle__btn"
+            [class.im-toggle__btn--active]="ideaFilter === 'ALL IDEAS'"
+            (click)="ideaFilter = 'ALL IDEAS'"
+          >ALL IDEAS</button>
+        </div>
+
+        <div class="im-search">
+          <span class="im-search__icon">🔍</span>
+          <input
+            type="text"
+            class="im-search__input"
+            placeholder="Search Ideas"
+            [(ngModel)]="searchQuery"
+          />
+          <button class="im-search__btn">›</button>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="im-toolbar__right">
+        <button class="im-action-btn im-action-btn--primary" (click)="navigateToPostIdea()">
+          <span>💡</span> Post New Idea
+        </button>
+        <button class="im-action-btn" [disabled]="selectedRows.length === 0">
+          <span>🗑</span> Delete
+        </button>
+        <button class="im-action-btn" [disabled]="selectedRows.length === 0">
+          <span>📤</span> Submit for Review
+        </button>
+        <button class="im-action-btn">Export</button>
+      </div>
+    </div>
+
+    <!-- Status Tabs -->
+    <div class="im-tabs">
+      @for (tab of statusTabs; track tab) {
+        <button
+          class="im-tab"
+          [class.im-tab--active]="activeTab === tab"
+          (click)="activeTab = tab"
+        >{{ tab }}</button>
+      }
+    </div>
+
+    <!-- Table -->
+    <div class="im-table-wrapper">
+      <table class="im-table">
+        <thead>
+          <tr>
+            <th class="im-table__check">
+              <input
+                type="checkbox"
+                (change)="handleSelectAll($event)"
+                [checked]="filteredIdeas.length > 0 && selectedRows.length === filteredIdeas.length"
+              />
+            </th>
+            @for (col of tableColumns; track col) {
+              <th class="im-table__th">
+                <div class="im-table__th-inner">
+                  {{ col }}
+                  <span class="im-table__filter-icon">▼</span>
+                </div>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @if (loading) {
+            <tr>
+              <td [attr.colspan]="tableColumns.length + 1" class="im-table__empty">
+                Loading...
+              </td>
+            </tr>
+          } @else if (filteredIdeas.length === 0) {
+            <tr>
+              <td [attr.colspan]="tableColumns.length + 1" class="im-table__empty">
+                No ideas found.
+              </td>
+            </tr>
+          } @else {
+            @for (idea of filteredIdeas; track idea.id) {
+              <tr class="im-table__row" [class.im-table__row--selected]="isSelected(idea.id)">
+                <td class="im-table__check">
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected(idea.id)"
+                    (change)="handleSelectRow(idea.id)"
+                  />
+                </td>
+                <td>{{ idea.ideaNo }}</td>
+                <td>{{ idea.name }}</td>
+                <td>{{ idea.internalInitiative }}</td>
+                <td>{{ idea.team }}</td>
+                <td>{{ idea.status }}</td>
+                <td>{{ idea.createdBy }}</td>
+                <td>{{ idea.createdDate }}</td>
+                <td>{{ idea.statusChangeDate }}</td>
+                <td>{{ idea.lastModifiedDate }}</td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
