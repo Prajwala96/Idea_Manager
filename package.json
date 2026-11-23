@@ -1,5 +1,5 @@
 {
-  "name": "idea-manager-git",
+  "name": "idea-manager",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:Idea_Manager_git": "node dist/Idea_Manager_git/server/server.mjs"
+    "serve:ssr:Idea_Manager": "node dist/Idea_Manager/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@11.20.0",

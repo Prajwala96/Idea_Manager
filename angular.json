@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "Idea_Manager_git": {
+    "Idea_Manager": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Idea_Manager_git:build:production"
+              "buildTarget": "Idea_Manager:build:production"
             },
             "development": {
-              "buildTarget": "Idea_Manager_git:build:development"
+              "buildTarget": "Idea_Manager:build:development"
             }
           },
           "defaultConfiguration": "development"
