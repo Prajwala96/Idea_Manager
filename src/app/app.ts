@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './src/app/components/login/login';
+import { LoginComponent } from '../src/components/login/login';
 
 @Component({
-  imports: [RouterOutlet,
+  imports: [
+    RouterOutlet,
     LoginComponent
   ],
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { LoginComponent } from './src/app/components/login/login';
 })
 export class App {
   protected readonly title = signal('Idea_Manager');
+
   onLoginSuccess(user: { username: string; displayName: string }) {
     console.log('Logged in as:', user.username);
   }
